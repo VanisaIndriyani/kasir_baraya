@@ -128,6 +128,11 @@
 
     <script>
         (() => {
+            const isMobile = () => {
+                const ua = navigator.userAgent || '';
+                return /Android|iPhone|iPad|iPod/i.test(ua);
+            };
+
             const setPageHeight = () => {
                 const el = document.getElementById('receiptPaper');
                 if (!el) return;
@@ -139,7 +144,9 @@
             window.addEventListener('beforeprint', setPageHeight);
             window.addEventListener('load', () => {
                 setPageHeight();
-                setTimeout(() => window.print(), 80);
+                if (!isMobile()) {
+                    setTimeout(() => window.print(), 80);
+                }
             });
         })();
     </script>

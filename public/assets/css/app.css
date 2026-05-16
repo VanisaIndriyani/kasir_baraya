@@ -89,6 +89,20 @@ body.admin{
     justify-content:center;
     border:1px solid rgba(17,24,39,.10);
 }
+
+@media (max-width: 991.98px){
+    .toast-container{
+        left:12px !important;
+        right:12px !important;
+        bottom:calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+        top:auto !important;
+        padding:0 0 12px !important;
+        max-width:unset !important;
+    }
+    .toast-container .toast{
+        width:100%;
+    }
+}
 .brand-mark{
     width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;
     border-radius:12px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
