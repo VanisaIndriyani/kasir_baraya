@@ -15,12 +15,13 @@
             line-height:1.2;
             font-variant-numeric:tabular-nums;
         }
-        .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 2.8mm; box-sizing:border-box; }
+        .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 6mm; box-sizing:border-box; }
         .center{ text-align:center; }
         .muted{ color:#000; font-size:12px; line-height:1.2; }
         .title{ font-size:19px; font-weight:900; letter-spacing:1.2px; }
         .sub{ font-size:12px; font-weight:700; }
         .addr{ font-size:10.5px; line-height:1.25; margin-top:4px; }
+        .paper-tail{ height:6mm; }
         .sep{ margin:8px 0; }
         .sep:before{ content:"--------------------------------"; display:block; }
         .row{ display:flex; justify-content:space-between; gap:10px; }
@@ -53,7 +54,7 @@
             .btns{ display:none; }
             html,body{ width:var(--paper); }
             body{ margin:0; }
-            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 2.8mm; border-radius:0; box-shadow:none; }
+            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 6mm; border-radius:0; box-shadow:none; }
         }
     </style>
 </head>
@@ -120,9 +121,11 @@
             <div class="bold">Terima kasih!</div>
             <div class="small">Simpan struk ini sebagai bukti pembayaran.</div>
         </div>
+        <div class="paper-tail" aria-hidden="true"></div>
     </div>
     <div class="btns">
         <button class="btn" onclick="window.print()">Print</button>
+        <a class="btn" href="{{ url('/kasir/receipt.txt?id=' . (int) $trx->id) }}">TXT (RawBT)</a>
         <button class="btn" onclick="window.close()">Tutup</button>
     </div>
 
@@ -137,7 +140,7 @@
                 const el = document.getElementById('receiptPaper');
                 if (!el) return;
                 const px = el.getBoundingClientRect().height;
-                const mm = Math.ceil((px * 25.4) / 96) + 6;
+                const mm = Math.ceil((px * 25.4) / 96) + 12;
                 document.documentElement.style.setProperty('--page-h', mm + 'mm');
             };
 

@@ -14,6 +14,7 @@ Route::get('/', fn () => redirect('/kasir/index.php'));
 Route::get('/kasir', fn () => redirect('/kasir/index.php'));
 Route::get('/kasir/index.php', [KasirController::class, 'index']);
 Route::get('/kasir/receipt.php', [KasirController::class, 'receipt']);
+Route::get('/kasir/receipt.txt', [KasirController::class, 'receiptText']);
 
 Route::get('/kasir/api/products.php', [KasirApiController::class, 'products']);
 Route::match(['GET', 'POST'], '/kasir/api/cart.php', [KasirApiController::class, 'cart']);

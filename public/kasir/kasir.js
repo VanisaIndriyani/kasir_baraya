@@ -92,7 +92,7 @@
         updateCashChange();
     };
 
-    const isMobileLayout = () => window.matchMedia && window.matchMedia('(max-width: 991.98px)').matches;
+    const isCompactMobileLayout = () => window.matchMedia && window.matchMedia('(max-width: 575.98px)').matches;
 
     const renderProducts = () => {
         els.grid.innerHTML = '';
@@ -102,14 +102,14 @@
         }
         els.empty.classList.add('d-none');
 
-        const mobile = isMobileLayout();
+        const compactMobile = isCompactMobileLayout();
 
         for (const p of state.products) {
             const col = document.createElement('div');
-            col.className = mobile ? 'col-12' : 'col-6 col-md-4 col-xl-3';
+            col.className = compactMobile ? 'col-12' : 'col-6 col-md-4 col-xl-3';
 
             const disabled = Number(p.stock) <= 0;
-            col.innerHTML = mobile
+            col.innerHTML = compactMobile
                 ? `
                     <div class="product-row app-hover">
                         <img class="product-row-img" src="${p.image_url}" alt="${p.name}">
@@ -224,6 +224,7 @@
         els.cartOverlay.classList.toggle('d-none', !shouldOpen);
         els.cartOverlay.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
         els.mobileBar?.classList.toggle('d-none', shouldOpen);
+        document.body.classList.toggle('no-scroll', shouldOpen);
     };
 
     const adjustQty = async (productId, delta) => {
