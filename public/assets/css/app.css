@@ -6,6 +6,10 @@
 }
 
 html,body{height:100%;}
+html{
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+}
 body.app-body{
     font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     color:var(--eb-text);
@@ -344,6 +348,11 @@ body.admin{
         padding-bottom:calc(132px + env(safe-area-inset-bottom, 0px));
     }
 
+    .kasir-page #productGrid,
+    .kasir-page #productEmpty{
+        padding-bottom:calc(132px + env(safe-area-inset-bottom, 0px));
+    }
+
     .kasir-toolbar{
         position:sticky;
         top:72px;
@@ -403,8 +412,8 @@ body.admin{
         top:auto;
         bottom:calc(84px + env(safe-area-inset-bottom, 0px));
         z-index:1047;
-        height:calc(100vh - 120px - env(safe-area-inset-bottom, 0px));
-        max-height:calc(100vh - 120px - env(safe-area-inset-bottom, 0px));
+        height:calc(100dvh - 120px - env(safe-area-inset-bottom, 0px));
+        max-height:calc(100dvh - 120px - env(safe-area-inset-bottom, 0px));
         transform:translateY(110%);
         transition:transform .22s ease;
     }
@@ -426,6 +435,12 @@ body.admin{
     .cart-scroll{
         max-height:none;
     }
+
+    .kasir-page #cashWrap .form-control-lg{
+        font-size:16px;
+        padding:.7rem .9rem;
+    }
+
 
     .cart-item{
         grid-template-columns:46px 1fr;
@@ -487,6 +502,9 @@ body.admin{
         font-size:10px;
         padding:3px 6px;
         border-radius:999px;
+    }
+    .product-mini-stock:empty{
+        display:none;
     }
     .product-mini-body{
         padding:10px 10px 10px;

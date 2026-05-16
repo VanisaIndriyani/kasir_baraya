@@ -114,7 +114,7 @@
                     <div class="product-mini app-hover ${disabled ? 'is-disabled' : ''}">
                         <div class="product-mini-media">
                             <img class="product-mini-img" src="${p.image_url}" alt="${p.name}">
-                            <span class="badge product-mini-stock ${disabled ? 'text-bg-secondary' : 'badge-soft'}">${disabled ? 'Habis' : 'Stok ' + p.stock}</span>
+                            <span class="badge product-mini-stock ${disabled ? 'text-bg-secondary' : 'badge-soft'}">${disabled ? 'Habis' : ''}</span>
                         </div>
                         <div class="product-mini-body">
                             <div class="product-mini-name" title="${p.name}">${p.name}</div>
@@ -134,7 +134,7 @@
                             <div class="fw-semibold product-title" title="${p.name}">${p.name}</div>
                             <div class="d-flex align-items-center justify-content-between mt-2">
                                 <div class="product-price">${fmtIDR(p.price)}</div>
-                                <span class="badge ${disabled ? 'text-bg-secondary' : 'badge-soft'}">${disabled ? 'Habis' : 'Stok ' + p.stock}</span>
+                                <span class="badge ${disabled ? 'text-bg-secondary' : 'badge-soft'}">${disabled ? 'Habis' : ''}</span>
                             </div>
                             <div class="d-grid mt-3 product-actions">
                                 <button class="btn btn-danger ${disabled ? 'disabled' : ''}" data-add="${p.id}" type="button">
@@ -359,6 +359,12 @@
         els.payCash.addEventListener('change', updateCashChange);
         els.payQris.addEventListener('change', updateCashChange);
         els.paid.addEventListener('input', updateCashChange);
+        els.paid.addEventListener('focus', () => {
+            if (!els.cartDrawer?.classList.contains('is-open')) return;
+            setTimeout(() => {
+                els.paid?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }, 80);
+        });
         document.querySelectorAll('[data-paid-set]').forEach((btn) => {
             btn.addEventListener('click', () => {
                 const v = Number(btn.getAttribute('data-paid-set') || 0);
@@ -377,6 +383,7 @@
             setDrawerOpen(true);
             if (els.payCash?.checked) {
                 setTimeout(() => els.paid?.focus(), 120);
+                setTimeout(() => els.paid?.scrollIntoView({ block: 'center', behavior: 'smooth' }), 180);
             }
         });
         window.addEventListener('resize', () => renderProducts());
