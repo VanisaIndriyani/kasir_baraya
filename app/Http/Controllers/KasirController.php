@@ -35,15 +35,11 @@ class KasirController extends Controller
         if (!$trx) {
             abort(404, 'Transaksi tidak ditemukan.');
         }
-
-        $items = $trx->items()->orderBy('id')->get();
-
-        $createdAt = $trx->created_at ? $trx->created_at->format('d/m/Y H:i') : '';
+        $receiptText = $this->buildReceiptText($trx);
 
         return view('kasir.receipt', [
             'trx' => $trx,
-            'items' => $items,
-            'createdAt' => $createdAt,
+            'receiptText' => $receiptText,
         ]);
     }
 
@@ -58,7 +54,17 @@ class KasirController extends Controller
         if (!$trx) {
             abort(404, 'Transaksi tidak ditemukan.');
         }
+        $content = $this->buildReceiptText($trx);
+        $filename = 'resi_' . (string) $trx->invoice . '.txt';
 
+        return response($content, 200, [
+            'Content-Type' => 'text/plain; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
+    private function buildReceiptText(Transaction $trx): string
+    {
         $items = $trx->items()->orderBy('id')->get(['product_name', 'price', 'qty', 'subtotal']);
 
         $W = 32;
@@ -69,7 +75,7 @@ class KasirController extends Controller
         $out = [];
         $out[] = str_pad('ES BARAYA', $W, ' ', STR_PAD_BOTH);
         $out[] = str_pad('Jl. Sukun No.26', $W, ' ', STR_PAD_BOTH);
-        $out[] = str_pad('Condongcatur - Depok', $W, ' ', STR_PAD_BOTH);
+        $out[] = str_pad('Ngringin, Condongcatur', $W, ' ', STR_PAD_BOTH);
         $out[] = str_pad('Sleman, DIY 55283', $W, ' ', STR_PAD_BOTH);
         $out[] = $line;
         $out[] = 'Tgl: ' . $createdAt;
@@ -95,15 +101,8 @@ class KasirController extends Controller
         $out[] = $this->padRight('KEMBALI', 10) . $this->padLeft('Rp ' . number_format((int) $trx->change_amount, 0, ',', '.'), $W - 10);
         $out[] = $line;
         $out[] = str_pad('Terima kasih!', $W, ' ', STR_PAD_BOTH);
-        $out[] = "\r\n";
 
-        $content = implode("\r\n", $out);
-        $filename = 'resi_' . (string) $trx->invoice . '.txt';
-
-        return response($content, 200, [
-            'Content-Type' => 'text/plain; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-        ]);
+        return implode("\r\n", $out) . "\r\n";
     }
 
     private function padRight(string $s, int $w): string

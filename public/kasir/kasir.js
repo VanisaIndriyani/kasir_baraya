@@ -53,6 +53,13 @@
         updateCashChange();
     };
 
+    const hideKeyboard = () => {
+        const el = document.activeElement;
+        if (el && typeof el.blur === 'function') {
+            el.blur();
+        }
+    };
+
     const apiUrl = (path) => {
         const base = (window.EB && window.EB.baseUrl) ? window.EB.baseUrl : '';
         return base.replace(/\/$/, '') + '/' + path.replace(/^\//, '');
@@ -220,6 +227,7 @@
     const setDrawerOpen = (open) => {
         if (!els.cartDrawer || !els.cartOverlay) return;
         const shouldOpen = Boolean(open);
+        if (shouldOpen) hideKeyboard();
         els.cartDrawer.classList.toggle('is-open', shouldOpen);
         els.cartOverlay.classList.toggle('d-none', !shouldOpen);
         els.cartOverlay.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
@@ -369,10 +377,14 @@
             btn.addEventListener('click', () => {
                 const v = Number(btn.getAttribute('data-paid-set') || 0);
                 setPaid(v);
+                hideKeyboard();
             });
         });
         document.querySelectorAll('[data-paid-exact]').forEach((btn) => {
-            btn.addEventListener('click', () => setPaid(Number(state.cart.total || 0)));
+            btn.addEventListener('click', () => {
+                setPaid(Number(state.cart.total || 0));
+                hideKeyboard();
+            });
         });
         els.checkout.addEventListener('click', checkout);
         els.cartOpenNav?.addEventListener('click', () => setDrawerOpen(true));
@@ -381,10 +393,6 @@
         els.cartOverlay?.addEventListener('click', () => setDrawerOpen(false));
         els.mobileCheckout?.addEventListener('click', () => {
             setDrawerOpen(true);
-            if (els.payCash?.checked) {
-                setTimeout(() => els.paid?.focus(), 120);
-                setTimeout(() => els.paid?.scrollIntoView({ block: 'center', behavior: 'smooth' }), 180);
-            }
         });
         window.addEventListener('resize', () => renderProducts());
     };

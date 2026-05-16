@@ -410,10 +410,10 @@ body.admin{
         left:12px;
         right:12px;
         top:auto;
-        bottom:calc(84px + env(safe-area-inset-bottom, 0px));
+        bottom:calc(76px + env(safe-area-inset-bottom, 0px));
         z-index:1047;
-        height:calc(100dvh - 120px - env(safe-area-inset-bottom, 0px));
-        max-height:calc(100dvh - 120px - env(safe-area-inset-bottom, 0px));
+        height:min(520px, calc(100dvh - 150px - env(safe-area-inset-bottom, 0px)));
+        max-height:min(520px, calc(100dvh - 150px - env(safe-area-inset-bottom, 0px)));
         transform:translateY(110%);
         transition:transform .22s ease;
     }
@@ -423,12 +423,13 @@ body.admin{
     }
 
     .cart-card{
-        border-radius:22px;
+        border-radius:18px;
         box-shadow:0 20px 50px rgba(16,24,40,.22);
         height:100%;
         max-height:100%;
         display:flex;
         flex-direction:column;
+        padding:14px !important;
         padding-bottom:calc(14px + env(safe-area-inset-bottom, 0px));
     }
 
@@ -546,6 +547,41 @@ body.admin{
         display:inline-flex;
         align-items:center;
         justify-content:center;
+    }
+}
+
+@media (max-width: 420px){
+    .cart-panel{
+        left:10px;
+        right:10px;
+        bottom:calc(72px + env(safe-area-inset-bottom, 0px));
+        height:calc(100dvh - 140px - env(safe-area-inset-bottom, 0px));
+        max-height:calc(100dvh - 140px - env(safe-area-inset-bottom, 0px));
+    }
+    .cart-card{
+        border-radius:18px;
+        padding:12px !important;
+        padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+    .cart-card .fs-5{
+        font-size:1.05rem !important;
+    }
+    .cart-card .btn-lg{
+        padding:12px 14px;
+        border-radius:16px;
+    }
+    .cart-card .form-control-lg{
+        border-radius:14px;
+        padding:.65rem .85rem;
+    }
+    .cart-card .qty-control{
+        padding:6px 10px;
+        border-radius:14px;
+    }
+    .cart-card .qty-btn{
+        width:32px;
+        height:32px;
+        border-radius:12px;
     }
 }
 
