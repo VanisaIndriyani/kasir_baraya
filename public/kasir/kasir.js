@@ -106,24 +106,24 @@
 
         for (const p of state.products) {
             const col = document.createElement('div');
-            col.className = compactMobile ? 'col-12' : 'col-6 col-md-4 col-xl-3';
+            col.className = compactMobile ? 'col-4' : 'col-6 col-md-4 col-xl-3';
 
             const disabled = Number(p.stock) <= 0;
             col.innerHTML = compactMobile
                 ? `
-                    <div class="product-row app-hover">
-                        <img class="product-row-img" src="${p.image_url}" alt="${p.name}">
-                        <div class="product-row-main">
-                            <div class="product-row-title" title="${p.name}">${p.name}</div>
-                            <div class="product-row-sub">
-                                <div class="product-price">${fmtIDR(p.price)}</div>
-                                <span class="badge ${disabled ? 'text-bg-secondary' : 'badge-soft'}">${disabled ? 'Habis' : 'Stok ' + p.stock}</span>
-                            </div>
+                    <div class="product-mini app-hover ${disabled ? 'is-disabled' : ''}">
+                        <div class="product-mini-media">
+                            <img class="product-mini-img" src="${p.image_url}" alt="${p.name}">
+                            <span class="badge product-mini-stock ${disabled ? 'text-bg-secondary' : 'badge-soft'}">${disabled ? 'Habis' : 'Stok ' + p.stock}</span>
                         </div>
-                        <div class="product-row-right">
-                            <button class="btn btn-danger product-row-btn ${disabled ? 'disabled' : ''}" data-add="${p.id}" type="button">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
+                        <div class="product-mini-body">
+                            <div class="product-mini-name" title="${p.name}">${p.name}</div>
+                            <div class="product-mini-footer">
+                                <div class="product-mini-price">${fmtIDR(p.price)}</div>
+                                <button class="btn btn-danger product-mini-add ${disabled ? 'disabled' : ''}" data-add="${p.id}" type="button" aria-label="Tambah">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `
