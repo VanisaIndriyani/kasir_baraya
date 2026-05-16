@@ -101,6 +101,10 @@ class KasirController extends Controller
         $out[] = $this->padRight('KEMBALI', 10) . $this->padLeft('Rp ' . number_format((int) $trx->change_amount, 0, ',', '.'), $W - 10);
         $out[] = $line;
         $out[] = str_pad('Terima kasih!', $W, ' ', STR_PAD_BOTH);
+        $out[] = '';
+        $out[] = '';
+        $out[] = '';
+        $out[] = '';
 
         return implode("\r\n", $out) . "\r\n";
     }

@@ -12,7 +12,7 @@
             color:#000;
             background:#fff;
             font-size:12px;
-            line-height:1.25;
+            line-height:1.3;
             font-variant-numeric:tabular-nums;
         }
         .receipt{
@@ -33,8 +33,8 @@
             .btns{ display:none; }
             html,body{ width:var(--paper); }
             body{ margin:0; }
-            body{ font-size:10px; }
-            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 6mm; overflow:hidden; }
+            body{ font-size:12px; }
+            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 16mm; overflow:hidden; }
         }
     </style>
 </head>
@@ -57,7 +57,7 @@
                 const el = document.getElementById('receiptPaper');
                 if (!el) return;
                 const px = el.getBoundingClientRect().height;
-                const mm = Math.ceil((px * 25.4) / 96) + 12;
+                const mm = Math.ceil((px * 25.4) / 96) + 28;
                 document.documentElement.style.setProperty('--page-h', mm + 'mm');
             };
 
