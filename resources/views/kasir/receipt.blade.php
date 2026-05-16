@@ -33,8 +33,8 @@
             .btns{ display:none; }
             html,body{ width:var(--paper); }
             body{ margin:0; }
-            body{ font-size:12px; }
-            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 16mm; overflow:hidden; }
+            body{ font-size:14px; line-height:1.35; }
+            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 22mm; white-space:pre-wrap; overflow:visible; }
         }
     </style>
 </head>
