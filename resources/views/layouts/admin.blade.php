@@ -30,8 +30,8 @@
         </div>
     </div>
 
-    <div class="admin-shell d-none d-lg-flex">
-        <aside class="admin-sidebar border-end">
+    <div class="admin-shell">
+        <aside class="admin-sidebar border-end d-none d-lg-block">
             <div class="p-3">
                 <div class="d-flex align-items-center gap-2">
                     <span class="brand-mark text-white" style="background:linear-gradient(90deg,var(--eb-red),var(--eb-red-dark));border-color:transparent;">EB</span>
@@ -52,11 +52,5 @@
                 @yield('admin_content')
             </div>
         </main>
-    </div>
-
-    <div class="container-fluid d-lg-none">
-        <div class="p-3">
-            @yield('admin_content')
-        </div>
     </div>
 @endsection
