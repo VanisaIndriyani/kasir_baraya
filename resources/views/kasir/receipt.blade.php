@@ -8,36 +8,36 @@
         :root{ --paper:57mm; --page-h:auto; }
         html,body{ padding:0; margin:0; }
         body{
-            font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+            font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
             color:#000;
             background:#fff;
-            font-size:12px;
-            line-height:1.2;
+            font-size:11px;
+            line-height:1.25;
             font-variant-numeric:tabular-nums;
         }
         .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 6mm; box-sizing:border-box; }
         .center{ text-align:center; }
-        .muted{ color:#000; font-size:12px; line-height:1.2; }
-        .title{ font-size:19px; font-weight:900; letter-spacing:1.2px; }
-        .sub{ font-size:12px; font-weight:700; }
-        .addr{ font-size:10.5px; line-height:1.25; margin-top:4px; }
+        .muted{ color:#000; font-size:11px; line-height:1.25; }
+        .title{ font-size:16px; font-weight:700; letter-spacing:.3px; }
+        .sub{ font-size:11px; font-weight:600; }
+        .addr{ font-size:10.5px; line-height:1.25; margin-top:3px; }
         .paper-tail{ height:6mm; }
         .sep{ margin:8px 0; }
         .sep:before{ content:"--------------------------------"; display:block; }
         .row{ display:flex; justify-content:space-between; gap:10px; }
         .mono{ font-family:inherit; }
         .right{ text-align:right; }
-        .bold{ font-weight:900; }
+        .bold{ font-weight:700; }
         .small{ font-size:10px; }
         .items{ display:flex; flex-direction:column; gap:7px; }
         .item{ padding:0; }
-        .item-name{ font-weight:800; font-size:11.2px; line-height:1.2; word-break:break-word; }
+        .item-name{ font-weight:700; font-size:11px; line-height:1.2; word-break:break-word; }
         .item-meta{ display:flex; justify-content:space-between; gap:10px; font-size:11px; }
         .totals{ width:100%; border-collapse:collapse; font-size:11px; }
         .totals td{ padding:2px 0; vertical-align:top; }
         .totals tr:first-child td{ padding-top:0; }
         .totals tr:last-child td{ padding-bottom:0; }
-        .label{ font-weight:700; }
+        .label{ font-weight:600; }
         .btns{ margin-top:12px; display:flex; gap:10px; justify-content:center; }
         .btn{ padding:8px 12px; border:1px solid #e5e7eb; background:#fff; border-radius:12px; cursor:pointer; }
         @page{ size: var(--paper) var(--page-h); margin:0; }

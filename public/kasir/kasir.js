@@ -152,14 +152,14 @@
                 const id = btn.getAttribute('data-add');
                 if (!id) return;
                 try {
-                    window.AppLoading?.show();
+                    btn.setAttribute('disabled', 'disabled');
                     await postForm(apiUrl('kasir/api/cart.php'), { action: 'add', product_id: id, qty: 1, _token: window.EB.csrf });
                     await fetchCart();
                     window.AppToast?.('Ditambahkan ke keranjang');
                 } catch (e) {
                     Swal.fire({ icon: 'error', title: 'Gagal', text: e.message || 'Gagal menambah' });
                 } finally {
-                    window.AppLoading?.hide();
+                    btn.removeAttribute('disabled');
                 }
             });
         });
@@ -230,27 +230,21 @@
     const adjustQty = async (productId, delta) => {
         if (!productId) return;
         try {
-            window.AppLoading?.show();
             await postForm(apiUrl('kasir/api/cart.php'), { action: 'adjust', product_id: productId, delta: delta, _token: window.EB.csrf });
             await fetchCart();
         } catch (e) {
             Swal.fire({ icon: 'error', title: 'Gagal', text: e.message || 'Gagal mengubah qty' });
-        } finally {
-            window.AppLoading?.hide();
         }
     };
 
     const removeItem = async (productId) => {
         if (!productId) return;
         try {
-            window.AppLoading?.show();
             await postForm(apiUrl('kasir/api/cart.php'), { action: 'remove', product_id: productId, _token: window.EB.csrf });
             await fetchCart();
             window.AppToast?.('Item dihapus');
         } catch (e) {
             Swal.fire({ icon: 'error', title: 'Gagal', text: e.message || 'Gagal menghapus' });
-        } finally {
-            window.AppLoading?.hide();
         }
     };
 
@@ -264,13 +258,10 @@
                 cancelButtonText: 'Batal'
             });
             if (!ok.isConfirmed) return;
-            window.AppLoading?.show();
             await postForm(apiUrl('kasir/api/cart.php'), { action: 'clear', _token: window.EB.csrf });
             await fetchCart();
         } catch (e) {
             Swal.fire({ icon: 'error', title: 'Gagal', text: e.message || 'Gagal mengosongkan' });
-        } finally {
-            window.AppLoading?.hide();
         }
     };
 

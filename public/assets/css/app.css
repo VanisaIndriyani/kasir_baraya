@@ -341,7 +341,7 @@ body.admin{
 
 @media (max-width: 991.98px){
     .kasir-page main.container-fluid{
-        padding-bottom:96px;
+        padding-bottom:calc(132px + env(safe-area-inset-bottom, 0px));
     }
 
     .kasir-toolbar{

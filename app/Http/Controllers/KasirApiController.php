@@ -18,7 +18,25 @@ class KasirApiController extends Controller
 
         $query = Product::query()->select(['id', 'name', 'price', 'stock', 'image'])->orderBy('name');
         if ($q !== '') {
-            $query->where('name', 'like', '%' . $q . '%');
+            $normalized = mb_strtolower($q, 'UTF-8');
+            $normalized = preg_replace('/[^\pL\pN]+/u', ' ', $normalized) ?? $normalized;
+            $tokens = preg_split('/\s+/u', trim($normalized)) ?: [];
+            $tokens = array_values(array_filter(array_unique($tokens), fn ($t) => $t !== ''));
+
+            $syn = [
+                'l' => 'large',
+                'lg' => 'large',
+                'm' => 'medium',
+                'md' => 'medium',
+                'j' => 'jumbo',
+                'jb' => 'jumbo',
+            ];
+
+            $tokens = array_slice($tokens, 0, 6);
+            foreach ($tokens as $t) {
+                $t2 = $syn[$t] ?? $t;
+                $query->where('name', 'like', '%' . $t2 . '%');
+            }
         }
         $rows = $query->limit($limit)->get();
 
