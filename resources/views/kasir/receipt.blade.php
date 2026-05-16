@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Resi {{ $trx->invoice }}</title>
     <style>
-        :root{ --paper:57mm; --page-h:auto; --cols:32; }
+        :root{ --paper:58mm; --page-h:auto; --cols:32; }
         html,body{ padding:0; margin:0; }
         body{
-            font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+            font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
             color:#000;
             background:#fff;
             font-size:12px;
@@ -33,8 +33,8 @@
             .btns{ display:none; }
             html,body{ width:var(--paper); }
             body{ margin:0; }
-            body{ font-size:14px; line-height:1.35; }
-            .receipt{ width:var(--paper); margin:0; padding:2mm 2mm 22mm; white-space:pre-wrap; overflow:visible; }
+            body{ font-size:15px; line-height:1.28; font-weight:600; }
+            .receipt{ width:var(--paper); margin:0; padding:1.5mm 1.5mm 24mm; white-space:pre; overflow:visible; }
         }
     </style>
 </head>
