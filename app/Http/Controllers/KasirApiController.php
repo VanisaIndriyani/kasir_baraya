@@ -42,7 +42,7 @@ class KasirApiController extends Controller
 
         $data = $rows->map(function (Product $p) {
             $image = (string) ($p->image ?? '');
-            $imageUrl = $image !== '' ? asset('uploads/products/' . $image) : $this->productPlaceholder((string) $p->name, (int) $p->id);
+            $imageUrl = $this->productImageUrl($image, (string) $p->name, (int) $p->id);
             return [
                 'id' => (int) $p->id,
                 'name' => (string) $p->name,
@@ -379,7 +379,7 @@ class KasirApiController extends Controller
             $count += $qty;
             $image = (string) ($row['image'] ?? '');
             $name = (string) ($row['name'] ?? '');
-            $imageUrl = $image !== '' ? asset('uploads/products/' . $image) : $this->productPlaceholder($name, (int) $productId);
+            $imageUrl = $this->productImageUrl($image, $name, (int) $productId);
             $items[] = [
                 'product_id' => (int) $productId,
                 'name' => $name,
@@ -391,6 +391,25 @@ class KasirApiController extends Controller
         }
 
         return ['items' => $items, 'total' => $total, 'count' => $count];
+    }
+
+    private function productImageUrl(string $image, string $name, int $id): string
+    {
+        $image = trim($image);
+        if ($image === '') {
+            return $this->productPlaceholder($name, $id);
+        }
+
+        if (preg_match('~^https?://~i', $image)) {
+            return $image;
+        }
+
+        $path = ltrim($image, '/');
+        if (str_contains($path, '/')) {
+            return asset($path);
+        }
+
+        return asset('uploads/products/' . $path);
     }
 
     private function validatePrinterName(string $name): bool

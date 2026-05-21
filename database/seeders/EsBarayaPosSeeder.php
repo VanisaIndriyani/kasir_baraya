@@ -29,26 +29,26 @@ class EsBarayaPosSeeder extends Seeder
         );
 
         $menu = [
-            ['name' => 'Teh Kampull', 'price' => 4000],
-            ['name' => 'Teh Jumbo', 'price' => 3000],
+            ['name' => 'Teh Kampull', 'price' => 4000, 'image' => 'produk/teh kampul.jpeg'],
+            ['name' => 'Teh Jumbo', 'price' => 3000, 'image' => 'produk/teh jumbo.jpeg'],
 
-            ['name' => 'Sultan Alpokat (Medium)', 'price' => 12000],
-            ['name' => 'Sultan Alpokat (Large)', 'price' => 15000],
+            ['name' => 'Alpukat Shake (Medium)', 'price' => 12000, 'image' => 'produk/alpukat shake.jpeg'],
+            ['name' => 'Alpukat Shake (Large)', 'price' => 15000, 'image' => 'produk/alpukat shake.jpeg'],
 
-            ['name' => 'Durian Sultan (Medium)', 'price' => 13000],
-            ['name' => 'Durian Sultan (Large)', 'price' => 16000],
+            ['name' => 'Durian Shake (Medium)', 'price' => 13000, 'image' => 'produk/durian shake.jpeg'],
+            ['name' => 'Durian Shake (Large)', 'price' => 16000, 'image' => 'produk/durian shake.jpeg'],
 
-            ['name' => 'Teller Nangka Creamy (Medium)', 'price' => 10000],
-            ['name' => 'Teller Nangka Creamy (Large)', 'price' => 13000],
+            ['name' => 'Teller Nangka Creamy (Medium)', 'price' => 10000, 'image' => 'produk/es teller nangka.jpeg'],
+            ['name' => 'Teller Nangka Creamy (Large)', 'price' => 13000, 'image' => 'produk/es teller nangka.jpeg'],
 
-            ['name' => 'Teller Durian Royale (Medium)', 'price' => 13000],
-            ['name' => 'Teller Durian Royale (Large)', 'price' => 15000],
+            ['name' => 'Teller Durian Royale (Medium)', 'price' => 13000, 'image' => 'produk/es teller durian.jpeg'],
+            ['name' => 'Teller Durian Royale (Large)', 'price' => 15000, 'image' => 'produk/es teller durian.jpeg'],
 
-            ['name' => 'Dawet Original Baraya (Medium)', 'price' => 12000],
-            ['name' => 'Dawet Original Baraya (Jumbo)', 'price' => 14000],
+            ['name' => 'Dawet Original Baraya (Medium)', 'price' => 12000, 'image' => 'produk/dawet original barya.jpeg'],
+            ['name' => 'Dawet Original Baraya (Jumbo)', 'price' => 14000, 'image' => 'produk/dawet original barya.jpeg'],
 
-            ['name' => 'Dawet Lava Durian (Medium)', 'price' => 15000],
-            ['name' => 'Dawet Lava Durian (Large)', 'price' => 17000],
+            ['name' => 'Dawet Durian Jumbo (Medium)', 'price' => 15000, 'image' => 'produk/es dawet durian.jpeg'],
+            ['name' => 'Dawet Durian Jumbo (Large)', 'price' => 17000, 'image' => 'produk/es dawet durian.jpeg'],
         ];
 
         $hasTransactions = DB::table('transactions')->exists();
@@ -68,7 +68,7 @@ class EsBarayaPosSeeder extends Seeder
                     'name' => $row['name'],
                     'price' => $row['price'],
                     'stock' => $defaultStock,
-                    'image' => null,
+                    'image' => $row['image'] ?? null,
                     'created_at' => $now,
                     'updated_at' => null,
                 ];
@@ -77,15 +77,23 @@ class EsBarayaPosSeeder extends Seeder
         }
 
         foreach ($menu as $row) {
-            $exists = DB::table('products')->where('name', $row['name'])->exists();
-            if ($exists) {
+            $existing = DB::table('products')->select(['id', 'image'])->where('name', $row['name'])->first();
+            if ($existing) {
+                $existingImage = (string) (($existing->image ?? '') ?: '');
+                $nextImage = (string) (($row['image'] ?? '') ?: '');
+                if ($existingImage === '' && $nextImage !== '') {
+                    DB::table('products')->where('id', (int) $existing->id)->update([
+                        'image' => $nextImage,
+                        'updated_at' => $now,
+                    ]);
+                }
                 continue;
             }
             DB::table('products')->insert([
                 'name' => $row['name'],
                 'price' => $row['price'],
                 'stock' => $defaultStock,
-                'image' => null,
+                'image' => $row['image'] ?? null,
                 'created_at' => $now,
                 'updated_at' => null,
             ]);

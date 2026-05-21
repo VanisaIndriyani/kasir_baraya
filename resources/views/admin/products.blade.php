@@ -31,7 +31,9 @@
                 @foreach ($products as $p)
                     @php
                         $img = (string) ($p->image ?? '');
-                        $imgUrl = $img !== '' ? asset('uploads/products/' . $img) : ('data:image/svg+xml;charset=UTF-8,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="100%" height="100%" fill="#f1f5f9"/><text x="50%" y="54%" text-anchor="middle" font-family="Arial" font-size="14" fill="#e30613">Es Baraya</text></svg>'));
+                        $imgUrl = $img !== ''
+                            ? (str_contains($img, '/') ? asset(ltrim($img, '/')) : asset('uploads/products/' . $img))
+                            : ('data:image/svg+xml;charset=UTF-8,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="100%" height="100%" fill="#f1f5f9"/><text x="50%" y="54%" text-anchor="middle" font-family="Arial" font-size="14" fill="#e30613">Es Baraya</text></svg>'));
                     @endphp
                     <tr>
                         <td style="width:92px;">
@@ -127,4 +129,3 @@
     <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{ asset('admin/products.js') }}"></script>
 @endpush
-
