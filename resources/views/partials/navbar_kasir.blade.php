@@ -9,7 +9,7 @@
             <span class="badge bg-light text-danger border ms-1 d-none d-sm-inline-flex">POS</span>
         </a>
 
-        <div class="d-flex align-items-center gap-2 ms-auto">
+        <div class="d-flex flex-column align-items-end gap-2 ms-auto">
             <button type="button" class="btn btn-sm btn-light border app-btn-icon nav-cart-btn d-lg-none" id="btnCartOpenNav" title="Keranjang">
                 <i class="bi bi-basket2"></i>
                 <span class="nav-count-badge" id="navCartCount">0</span>

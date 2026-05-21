@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Resi {{ $trx->invoice }}</title>
     <style>
-        :root{ --paper:58mm; --page-h:auto; --cols:32; }
+        :root{ --paper:58mm; --page-h:auto; --cols:32; --logo-rot:-2deg; }
         html,body{ padding:0; margin:0; }
         body{
             font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
@@ -15,10 +15,32 @@
             line-height:1.3;
             font-variant-numeric:tabular-nums;
         }
-        .receipt{
-            width:min(100%, calc(var(--cols) * 1ch));
+        .receipt-head{
+            width:min(100%, var(--paper));
             margin:0 auto;
-            padding:16px 12px;
+            padding:14px 12px 0;
+            box-sizing:border-box;
+        }
+        .receipt-logo{
+            display:flex;
+            justify-content:center;
+            margin-bottom:6px;
+        }
+        .receipt-logo-img{
+            max-width:52mm;
+            max-height:30mm;
+            width:auto;
+            height:auto;
+            display:block;
+            object-fit:contain;
+            object-position:center;
+            transform:rotate(var(--logo-rot));
+            transform-origin:center;
+        }
+        .receipt{
+            width:min(100%, var(--paper));
+            margin:0 auto;
+            padding:8px 12px 16px;
             box-sizing:border-box;
             white-space:pre;
             overflow-x:auto;
@@ -34,11 +56,23 @@
             html,body{ width:var(--paper); }
             body{ margin:0; }
             body{ font-size:15px; line-height:1.28; font-weight:600; }
-            .receipt{ width:var(--paper); margin:0; padding:1.5mm 1.5mm 24mm; white-space:pre; overflow:visible; }
+            .receipt-head{ width:var(--paper); margin:0; padding:1.5mm 1.5mm 0; }
+            .receipt-logo{ margin-bottom:1mm; }
+            .receipt-logo-img{
+                max-width:52mm;
+                max-height:30mm;
+                filter:grayscale(1) contrast(1.2);
+            }
+            .receipt{ width:var(--paper); margin:0; padding:0 1.5mm 24mm; white-space:pre; overflow:visible; }
         }
     </style>
 </head>
 <body>
+    <div class="receipt-head">
+        <div class="receipt-logo" aria-hidden="true">
+            <img class="receipt-logo-img" src="{{ asset('logo.jpeg') }}" alt="ES BARAYA">
+        </div>
+    </div>
     <pre class="receipt" id="receiptPaper">{{ $receiptText }}</pre>
     <div class="btns">
         <button class="btn" onclick="window.print()">Print</button>

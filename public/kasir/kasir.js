@@ -113,7 +113,7 @@
 
         for (const p of state.products) {
             const col = document.createElement('div');
-            col.className = compactMobile ? 'col-4' : 'col-6 col-md-4 col-xl-3';
+            col.className = compactMobile ? 'col-6' : 'col-6 col-md-4 col-xl-3';
 
             const disabled = Number(p.stock) <= 0;
             col.innerHTML = compactMobile
